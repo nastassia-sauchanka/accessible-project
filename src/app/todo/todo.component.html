@@ -1,0 +1,20 @@
+<div class="todo-container">
+    <h1>To-Do List</h1>
+
+    <form (submit)="addTask()" aria-labelledby="taskInput">
+        <label for="taskInput">Add task:</label>
+        <input id="taskInput" name="taskInput" type="text" [(ngModel)]="newTask" aria-describedby="taskHelp" />
+        {{newTask}}
+        <button type="submit" [disabled]="!newTask.trim()">Add</button>
+        <p id="taskHelp" aria-live="polite">Enter task and press "Add"</p>
+    </form>
+
+    <ul>
+        <li *ngFor="let task of tasks; let i = index" tabindex="0" (keydown)="handleKeyDown($event, i)">
+            <input type="checkbox" [checked]="task.completed" (change)="toggleTask(i)"
+                aria-label="Mark task as completed" />
+            <span [class.completed]="task.completed">{{ task.name }}</span>
+            <button (click)="removeTask(i)" aria-label="Remove task">❌</button>
+        </li>
+    </ul>
+</div>
